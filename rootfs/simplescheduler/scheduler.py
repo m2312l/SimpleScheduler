@@ -22,7 +22,7 @@ if __name__ == '__main__':
             except:
                 max_retry = 3
             if max_retry < 0: max_retry = 3
-            if max_retry > 5: max_retry = 5
+            if max_retry > 60: max_retry = 60
             current_time = datetime.now().strftime("%H:%M")
             current_dow = datetime.now().strftime("%w")
             schedulers_list = main.load_json_schedulers()
@@ -69,16 +69,16 @@ if __name__ == '__main__':
                                 value = p[1][1:]
                             event_time = main.evaluate_event_time(t, sunrise, sunset)
                             if event_time == current_time:
-                                    main.printlog("SCHED: Evaluating template for [%s]: %s" % ( s['name'], condition ) )
-                                    main.printlog("SCHED: Executing ON actions for [%s]" % s['name'])
-                                    main.call_ha(s['entity_id'], "on", value, friendly_name )
-                                    for entity in s['entity_id']:
-                                        if (len(value) > 0 and value[0] != 'O') or not value :  # if TemperatureOnly don't add to queue
-                                            if not dont_retry and max_retry > 0 :
-                                                if main.is_a_retry_domain(entity):
-                                                    command_queue[uuid.uuid4().hex] = {"entity_id": entity, "sched_id": s['id'],
-                                                                                       "state": "on", "value": value,
-                                                                                       "countdown": max_retry,"max_retry": max_retry}
+                                if template: main.printlog("SCHED: Evaluating template for [%s]: %s" % ( s['name'], condition ) )
+                                main.printlog("SCHED: Executing ON actions for [%s]" % s['name'])
+                                main.call_ha(s['entity_id'], "on", value, friendly_name )
+                                for entity in s['entity_id']:
+                                    if (len(value) > 0 and value[0] != 'O') or not value :  # if TemperatureOnly don't add to queue
+                                        if not dont_retry and max_retry > 0 :
+                                            if main.is_a_retry_domain(entity):
+                                                command_queue[uuid.uuid4().hex] = {"entity_id": entity, "sched_id": s['id'],
+                                                                                   "state": "on", "value": value,
+                                                                                   "countdown": max_retry,"max_retry": max_retry}
 
                     if current_dow in s['off_dow']:
 
@@ -99,16 +99,16 @@ if __name__ == '__main__':
                                 value = p[1][1:]
                             event_time = main.evaluate_event_time(t, sunrise, sunset)
                             if event_time == current_time:
-                                    main.printlog("SCHED: Evaluating template for [%s]: %s" % ( s['name'], condition ) )
-                                    main.printlog("SCHED: Executing OFF actions for [%s]" % s['name'])
-                                    main.call_ha(s['entity_id'], "off", value, friendly_name )
-                                    for entity in s['entity_id']:
-                                        if (len(value) > 0 and value[0] != 'O') or not value:  # if TemperatureOnly don't add to queue
-                                            if not dont_retry and max_retry > 0 :
-                                                if main.is_a_retry_domain(entity):
-                                                    command_queue[uuid.uuid4().hex] = {"entity_id": entity, "sched_id": s['id'],
-                                                                                       "state": "off", "value": value,
-                                                                                       "countdown": max_retry,"max_retry": max_retry}
+                                if template: main.printlog("SCHED: Evaluating template for [%s]: %s" % ( s['name'], condition ) )
+                                main.printlog("SCHED: Executing OFF actions for [%s]" % s['name'])
+                                main.call_ha(s['entity_id'], "off", value, friendly_name )
+                                for entity in s['entity_id']:
+                                    if (len(value) > 0 and value[0] != 'O') or not value:  # if TemperatureOnly don't add to queue
+                                        if not dont_retry and max_retry > 0 :
+                                            if main.is_a_retry_domain(entity):
+                                                command_queue[uuid.uuid4().hex] = {"entity_id": entity, "sched_id": s['id'],
+                                                                                   "state": "off", "value": value,
+                                                                                   "countdown": max_retry,"max_retry": max_retry}
 
             sleep(5)
 
