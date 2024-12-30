@@ -1,5 +1,5 @@
 ---
-version: "2.5.1f"
+version: "2.5.2a"
 name: Simple Scheduler TEST
 description: Simple timer on weekly base
 slug: simplescheduler
