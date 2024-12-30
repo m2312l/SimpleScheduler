@@ -59,7 +59,7 @@ if __name__ == '__main__':
                         if condition:
                             elist = main.get_events_array(s['on_tod'])
                         else:
-                            elist = main.get_events_array(on_tod_false)
+                            elist = main.get_events_array(s['on_tod_false'])
 
                         for e in elist:
                             value = ""
@@ -91,7 +91,7 @@ if __name__ == '__main__':
                         if condition:
                             elist = main.get_events_array(s['off_tod'])
                         else:
-                            elist = main.get_events_array(off_tod_false)
+                            elist = main.get_events_array(s['off_tod_false'])
 
                         for e in elist:
                             value = ""
