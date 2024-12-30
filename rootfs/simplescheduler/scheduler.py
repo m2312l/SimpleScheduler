@@ -70,7 +70,6 @@ if __name__ == '__main__':
                             event_time = main.evaluate_event_time(t, sunrise, sunset)
                             if event_time == current_time:
                                 if template:
-                                    condition = main.evaluate_template(template)
                                     main.printlog("SCHED: Evaluating template for [%s]: %s" % ( s['name'], condition ) )
                                 if condition:
                                     main.printlog("SCHED: Executing ON actions for [%s]" % s['name'])
@@ -103,9 +102,8 @@ if __name__ == '__main__':
                             event_time = main.evaluate_event_time(t, sunrise, sunset)
                             if event_time == current_time:
                                 if template:
-                                    condition = main.evaluate_template(template)
                                     main.printlog("SCHED: Evaluating template for [%s]: %s" % ( s['name'], condition ) )
-                                if not condition:
+                                if condition:
                                     main.printlog("SCHED: Executing OFF actions for [%s]" % s['name'])
                                     main.call_ha(s['entity_id'], "off", value, friendly_name )
                                     for entity in s['entity_id']:
