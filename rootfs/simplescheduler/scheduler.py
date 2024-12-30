@@ -52,9 +52,9 @@ if __name__ == '__main__':
 
                     if current_dow in s['on_dow']:
 
-#                        if template:
-#                            condition = main.evaluate_template(template)
-#                            if options['debug']: main.printlog("DEBUG: Evaluating template for [%s]: %s" % (s['name'], condition))
+                        if template:
+                            condition = main.evaluate_template(template)
+                            if options['debug']: main.printlog("DEBUG: Evaluating template for [%s]: %s" % (s['name'], condition))
 
                         if condition:
                             elist = main.get_events_array(s['on_tod'])
@@ -69,8 +69,6 @@ if __name__ == '__main__':
                                 value = p[1][1:]
                             event_time = main.evaluate_event_time(t, sunrise, sunset)
                             if event_time == current_time:
-                                if template: 
-                                    main.printlog("SCHED: Evaluating template for [%s]: %s" % ( s['name'], condition ) )
                                 main.printlog("SCHED: Executing ON actions for [%s]" % s['name'])
                                 main.call_ha(s['entity_id'], "on", value, friendly_name )
                                 for entity in s['entity_id']:
@@ -83,9 +81,9 @@ if __name__ == '__main__':
 
                     if current_dow in s['off_dow']:
 
-#                        if template:
-#                            condition = main.evaluate_template(template)
-#                            if options['debug']: main.printlog("DEBUG: Evaluating template for [%s]: %s" % (s['name'], condition))
+                        if template:
+                            condition = main.evaluate_template(template)
+                            if options['debug']: main.printlog("DEBUG: Evaluating template for [%s]: %s" % (s['name'], condition))
 
                         if condition:
                             elist = main.get_events_array(s['off_tod'])
@@ -100,8 +98,6 @@ if __name__ == '__main__':
                                 value = p[1][1:]
                             event_time = main.evaluate_event_time(t, sunrise, sunset)
                             if event_time == current_time:
-                                if template: 
-                                    main.printlog("SCHED: Evaluating template for [%s]: %s" % ( s['name'], condition ) )
                                 main.printlog("SCHED: Executing OFF actions for [%s]" % s['name'])
                                 main.call_ha(s['entity_id'], "off", value, friendly_name )
                                 for entity in s['entity_id']:
